@@ -1,4 +1,4 @@
-package edu.zhku.jsj144.lzc.articleHub.util.paging;
+package edu.zhku.jsj144.lzc.articleHub.plugin;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;

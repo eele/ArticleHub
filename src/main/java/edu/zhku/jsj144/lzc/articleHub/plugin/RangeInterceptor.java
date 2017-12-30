@@ -1,11 +1,11 @@
-package edu.zhku.jsj144.lzc.articleHub.util.paging;
+package edu.zhku.jsj144.lzc.articleHub.plugin;
 
 import java.sql.Connection;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
-import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
@@ -14,17 +14,24 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 
-import edu.zhku.jsj144.lzc.articleHub.pojo.Page;
-
 @Intercepts({
 		@Signature(type = StatementHandler.class, method = "prepare", args = { Connection.class, Integer.class }) })
-public class PagingInterceptor implements Interceptor {
+public class RangeInterceptor implements Interceptor {
 
-	private String concatPageSql(String sql, Page page) {
-		StringBuffer pageSql = new StringBuffer();
-		pageSql.append(sql);
-		pageSql.append(" limit ").append(page.getPagebegin() - 1).append(" , ").append(page.getPagesize());
-		return pageSql.toString();
+	private String concatRangeSql(String sql, Map<String, String> dataMap) {
+		StringBuffer rangeSql = new StringBuffer();
+		rangeSql.append(sql);
+		if (dataMap.containsKey("_orderby")) {
+			rangeSql.append(" order by `")
+			.append(dataMap.get("_orderby") + "` ")
+			.append(dataMap.get("_order"));
+		}
+		rangeSql.append(" limit ")
+		.append(Integer.parseInt(dataMap.get("_pb")) - 1)
+		.append(" , ").append(dataMap.get("_ps"));
+		
+		System.out.println(rangeSql.toString());
+		return rangeSql.toString();
 	}
 
 	@Override
@@ -32,14 +39,14 @@ public class PagingInterceptor implements Interceptor {
 		// TODO Auto-generated method stub
 		StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
 		MetaObject metaStatementHandler = SystemMetaObject.forObject(statementHandler);
-		MappedStatement mappedStatement = (MappedStatement) metaStatementHandler.getValue("delegate.mappedStatement");
+		BoundSql boundSql = (BoundSql) metaStatementHandler.getValue("delegate.boundSql");
+		@SuppressWarnings("unchecked")
+		Map<String, String> dataMap = ((Map<String, Map<String, String>>) boundSql.getParameterObject()).get("params");
 		
-		if (mappedStatement.getResultMaps().size() > 0 && 
-				mappedStatement.getResultMaps().get(0).getResultMappings().size() > 0) {
-			BoundSql boundSql = (BoundSql) metaStatementHandler.getValue("delegate.boundSql");
+		if (dataMap.containsKey("_pb") && dataMap.containsKey("_ps")) {
 			String sql = boundSql.getSql();
-			Page page = (Page) boundSql.getParameterObject();
-			sql = concatPageSql(sql, page);
+			
+			sql = concatRangeSql(sql, dataMap);
 			
 			metaStatementHandler.setValue("delegate.boundSql.sql", sql);
 		}
@@ -49,11 +56,7 @@ public class PagingInterceptor implements Interceptor {
 	@Override
 	public Object plugin(Object target) {
 		// TODO Auto-generated method stub
-		if (target instanceof StatementHandler) {
-			return Plugin.wrap(target, this);
-		} else {
-			return target;
-		}
+		return Plugin.wrap(target, this);
 	}
 
 	@Override

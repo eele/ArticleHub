@@ -23,10 +23,10 @@ public class CommonController {
 	@Autowired
 	private CommonService service;
 
-	@RequestMapping(path = "/common/{type}/{field}/{value}", method = GET)
+	@RequestMapping(path = "/{type}/{field}/{value}", method = GET)
 	@ResponseBody
 	// @ControllerPaging(requestParam = "arg0")
-	public EchoMessage getData(Map<String, String> dataMap, @PathVariable String type, @PathVariable String field,
+	public EchoMessage getData(@RequestParam Map<String, String> dataMap, @PathVariable String type, @PathVariable String field,
 			@PathVariable String value) throws IOException {
 		dataMap.put("_type", type);
 		dataMap.put(field, value);
@@ -36,9 +36,9 @@ public class CommonController {
 		return message;
 	}
 
-	@RequestMapping(path = "/common/{type}/{field}/{value}", method = DELETE)
+	@RequestMapping(path = "/{type}/{field}/{value}", method = DELETE)
 	@ResponseBody
-	public EchoMessage deleteData(Map<String, String> dataMap, @PathVariable String type, @PathVariable String field,
+	public EchoMessage deleteData(@RequestParam Map<String, String> dataMap, @PathVariable String type, @PathVariable String field,
 			@PathVariable String value) throws IOException {
 		dataMap.put("_type", type);
 		dataMap.put(field, value);
@@ -47,7 +47,7 @@ public class CommonController {
 		return message;
 	}
 
-	@RequestMapping(path = "/common/{type}", method = POST)
+	@RequestMapping(path = "/{type}", method = POST)
 	@ResponseBody
 	public EchoMessage insertData(@RequestParam Map<String, String> dataMap, @PathVariable String type)
 			throws IOException {
@@ -57,7 +57,7 @@ public class CommonController {
 		return message;
 	}
 
-	@RequestMapping(path = "/common/{type}/{field}/{value}", method = PUT)
+	@RequestMapping(path = "/{type}/{field}/{value}", method = PUT)
 	@ResponseBody
 	public EchoMessage updateData(@RequestParam Map<String, String> dataMap, @PathVariable String type,
 			@PathVariable String field, @PathVariable String value) throws IOException {

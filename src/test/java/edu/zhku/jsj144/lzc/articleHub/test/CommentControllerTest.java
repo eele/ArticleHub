@@ -30,7 +30,7 @@ public class CommentControllerTest {
 	
 	@Test
 	public void testGetData() throws UnsupportedEncodingException, Exception {
-		System.out.println(mockMvc.perform(MockMvcRequestBuilders.get("/common/user/username/12"))
+		System.out.println(mockMvc.perform(MockMvcRequestBuilders.get("/user/username/%?_pb=1&_ps=2"))
 				.andReturn()
 				.getResponse()
 				.getContentAsString());
@@ -38,7 +38,7 @@ public class CommentControllerTest {
 
 	@Test
 	public void testDeleteData() throws UnsupportedEncodingException, Exception {
-		System.out.println(mockMvc.perform(MockMvcRequestBuilders.delete("/common/user/username/qwetext"))
+		System.out.println(mockMvc.perform(MockMvcRequestBuilders.delete("/user/username/qwetext"))
 				.andReturn()
 				.getResponse()
 				.getContentAsString());
@@ -47,7 +47,7 @@ public class CommentControllerTest {
 	@Test
 	public void testInsertData() throws UnsupportedEncodingException, Exception {
 		System.out.println(mockMvc.perform(MockMvcRequestBuilders
-				.post("/common/user?uid=1231&portraitURL=qwe&username=qwetext&password=qwetext&email=qwetext&desc=qwetext"))
+				.post("/user?uid=1231&portraitURL=qwe&username=qwetext&password=qwetext&email=qwetext&desc=qwetext"))
 				.andReturn()
 				.getResponse()
 				.getContentAsString());
@@ -56,7 +56,7 @@ public class CommentControllerTest {
 	@Test
 	public void testUpdateData() throws UnsupportedEncodingException, Exception {
 		System.out.println(mockMvc.perform(MockMvcRequestBuilders
-				.put("/common/user/username/qwetext?uid=123qwe&portraitURL=qwe&username=qwetext&password=123&email=qwetext&desc=qwetext"))
+				.put("/user/username/qwetext?uid=123qwe&portraitURL=qwe&username=qwetext&password=123&email=qwetext&desc=qwetext"))
 				.andReturn()
 				.getResponse()
 				.getContentAsString());
