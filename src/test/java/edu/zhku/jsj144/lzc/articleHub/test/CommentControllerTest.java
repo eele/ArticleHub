@@ -38,7 +38,7 @@ public class CommentControllerTest {
 
 	@Test
 	public void testDeleteData() throws UnsupportedEncodingException, Exception {
-		System.out.println(mockMvc.perform(MockMvcRequestBuilders.delete("/common/user/username/3"))
+		System.out.println(mockMvc.perform(MockMvcRequestBuilders.delete("/common/user/username/qwetext"))
 				.andReturn()
 				.getResponse()
 				.getContentAsString());

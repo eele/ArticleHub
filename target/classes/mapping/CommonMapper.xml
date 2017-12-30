@@ -8,52 +8,56 @@
 	<resultMap id="commonResultMap" type="Map"/>
 
 	<select id="getData" parameterType="Map" resultMap="commonResultMap">
-		select * from `${params.arg.type}` where
-		<foreach collection="params.data.keys" item="k" separator="and">
-			<if test="null != params.data[k]">
-				`${k}` like #{params.data[${k}]}
+		select * from `${params._type}` where
+		<foreach collection="params.keys" item="k" separator="and">
+			<if test='null != params[k] and k.substring(0,1) != "_"'>
+				`${k}` like #{params[${k}]}
 			</if>
-			<if test="null == params.data[k]">
+			<if test='null == params[k]'>
 				`${k}` is null
 			</if>
 		</foreach>
 	</select>
 
 	<delete id="deleteData" parameterType="Map">
-		delete from `${params.arg.type}` where
-		<foreach collection="params.data.keys" item="k" separator="and">
-			<if test="null != params.data[k]">
-				`${k}` = #{params.data[${k}]}
+		delete from `${params._type}` where
+		<foreach collection="params.keys" item="k" separator="and">
+			<if test='null != params[k] and k.substring(0,1) != "_"'>
+				`${k}` = #{params[${k}]}
 			</if>
-			<if test="null == params.data[k]">
+			<if test='null == params[k]'>
 				`${k}` is null
 			</if>
 		</foreach>
 	</delete>
 
 	<insert id="insertData" parameterType="Map">
-		insert into `${params.arg.type}`
-		<foreach collection="params.data.keys" item="key" open="(" close=")"
+		insert into `${params._type}`
+		<foreach collection="params.keys" item="key" open="(" close=")"
 			separator=",">
-			`${key}`
+			<if test='key.substring(0,1) != "_"'>
+				`${key}`
+			</if>
 		</foreach>
 		values
-		<foreach collection="params.data.keys" item="key" open="(" close=")"
+		<foreach collection="params.keys" item="key" open="(" close=")"
 			separator=",">
-			#{params.data[${key}]}
+			<if test='key.substring(0,1) != "_"'>
+				#{params[${key}]}
+			</if>
 		</foreach>
 	</insert>
 	
 	<update id="updateData" parameterType="Map">
-		update `${params.arg.type}` set
-		<foreach collection="params.data.keys" item="k" separator=",">
-			<if test="null != params.data[k]">
-				`${k}` = #{params.data[${k}]}
+		update `${params._type}` set
+		<foreach collection="params.keys" item="k" separator=",">
+			<if test='null != params[k] and k.substring(0,1) != "_"'>
+				`${k}` = #{params[${k}]}
 			</if>
-			<if test="null == params.data[k]">
+			<if test='null == params[k]'>
 				`${k}` is null
 			</if>
 		</foreach>
-		where `${params.arg.field}` = #{params.arg.value}
+		where `${params._field}` = #{params._value}
 	</update>
 </mapper>
