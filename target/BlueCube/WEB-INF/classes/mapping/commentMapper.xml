@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.zhku.jsj144.lzc.articleHub.mapper.CommentMapper">
+	<resultMap id="commentResultMap" type="edu.zhku.jsj144.lzc.articleHub.pojo.Comment">
+		<result property="cid" column="cid" />
+		<result property="vid" column="vid" />
+		<result property="uid" column="uid" />
+		<result property="text" column="text" />
+		<result property="datetime" column="datetime" />
+	</resultMap>
+	
+	<select id="getComments" parameterType="edu.zhku.jsj144.lzc.articleHub.pojo.Comment" resultMap="commentResultMap">
+		select * from comment where vid = #{vid}
+	</select>
+	
+	<select id="getOneComment" parameterType="edu.zhku.jsj144.lzc.articleHub.pojo.Comment" resultType="edu.zhku.jsj144.lzc.articleHub.pojo.Comment">
+		select * from comment where cid = #{cid}
+	</select>
+
+	<delete id="deleteComment" parameterType="edu.zhku.jsj144.lzc.articleHub.pojo.Comment">
+		delete from comment where cid = #{cid}
+	</delete>
+	
+	<insert id="insertComment" parameterType="edu.zhku.jsj144.lzc.articleHub.pojo.Comment">
+		insert into comment 
+		values(#{cid}, #{vid}, #{uid}, #{text}, #{datetime})
+	</insert>
+</mapper>
