@@ -4,63 +4,56 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="edu.zhku.jsj144.lzc.articleHub.mapper.CommonMapper">
-	<!-- <resultMap id="commonResultMap" _type="java.lang.Object"/> -->
 
-	<!-- <select id="getDataList" parameterType="java.lang.Object" resultMap="commonResultMap"> -->
-	<!-- select * from comment where vid = #{vid} -->
-	<!-- </select> -->
+	<resultMap id="commonResultMap" type="Map"/>
 
-	<select id="getData" parameterType="Map" resultType="Map">
-		select * from `${params._type}` where
-		<foreach collection="params.keys" item="k" separator="and">
-			<if test="null != params[k] and k != '_type'">
-				`${k}` = #{params[${k}]}
+	<select id="getData" parameterType="Map" resultMap="commonResultMap">
+		select * from `${params.arg.type}` where
+		<foreach collection="params.data.keys" item="k" separator="and">
+			<if test="null != params.data[k]">
+				`${k}` like #{params.data[${k}]}
 			</if>
-			<if test="null == params[k]">
+			<if test="null == params.data[k]">
 				`${k}` is null
 			</if>
 		</foreach>
 	</select>
 
 	<delete id="deleteData" parameterType="Map">
-		delete from `${params._type}` where
-		<foreach collection="params.keys" item="k" separator="and">
-			<if test="null != params[k] and k != '_type'">
-				`${k}` = #{params[${k}]}
+		delete from `${params.arg.type}` where
+		<foreach collection="params.data.keys" item="k" separator="and">
+			<if test="null != params.data[k]">
+				`${k}` = #{params.data[${k}]}
 			</if>
-			<if test="null == params[k]">
+			<if test="null == params.data[k]">
 				`${k}` is null
 			</if>
 		</foreach>
 	</delete>
 
 	<insert id="insertData" parameterType="Map">
-		insert into `${params._type}`
-		<foreach collection="params.keys" item="key" open="(" close=")"
+		insert into `${params.arg.type}`
+		<foreach collection="params.data.keys" item="key" open="(" close=")"
 			separator=",">
-			<if test="key != '_type'">
-				`${key}`
-			</if>
+			`${key}`
 		</foreach>
 		values
-		<foreach collection="params.keys" item="key" open="(" close=")"
+		<foreach collection="params.data.keys" item="key" open="(" close=")"
 			separator=",">
-			<if test="key != '_type'">
-				#{params[${key}]}
-			</if>
+			#{params.data[${key}]}
 		</foreach>
 	</insert>
 	
 	<update id="updateData" parameterType="Map">
-		update `${params._type}` set
-		<foreach collection="params.keys" item="k" separator=",">
-			<if test="null != params[k] and k != '_type' and k != '_field' and k != '_value'">
-				`${k}` = #{params[${k}]}
+		update `${params.arg.type}` set
+		<foreach collection="params.data.keys" item="k" separator=",">
+			<if test="null != params.data[k]">
+				`${k}` = #{params.data[${k}]}
 			</if>
-			<if test="null == params[k]">
+			<if test="null == params.data[k]">
 				`${k}` is null
 			</if>
 		</foreach>
-		where `${params._field}` = #{params._value}
+		where `${params.arg.field}` = #{params.arg.value}
 	</update>
 </mapper>
