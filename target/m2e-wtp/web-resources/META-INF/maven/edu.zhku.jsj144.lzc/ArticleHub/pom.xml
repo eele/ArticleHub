@@ -1,12 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>xyz.eselectron</groupId>
+	<groupId>edu.zhku.jsj144.lzc</groupId>
 	<artifactId>ArticleHub</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
 	<name>ArticleHub Maven Webapp</name>
-	<url>http://vi.eselectron.xyz</url>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -103,23 +102,8 @@
 					<target>1.8</target>
 					<verbose>true</verbose>
 					<fork>true</fork>
-					<executable>C:/Program Files/Java/jdk1.8.0_131/bin/javac</executable>
+<!-- 					<executable>C:/Program Files/Java/jdk1.8.0_121/bin/javac</executable> -->
 					<compilerVersion>1.8</compilerVersion>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<path>/ArticleHub</path>
-					<url>http://vi.eselectron.xyz:8080/manager/text</url>
-					<!-- <url>http://localhost:8080/manager/text</url> -->
-					<uriEncoding>UTF-8</uriEncoding>
-					<update>true</update>
-					<username>e</username>
-					<password>e</password>
-					<!-- <password>e</password> -->
 				</configuration>
 			</plugin>
 		</plugins>
