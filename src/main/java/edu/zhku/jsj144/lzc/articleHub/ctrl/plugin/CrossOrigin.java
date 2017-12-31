@@ -1,4 +1,4 @@
-package edu.zhku.jsj144.lzc.articleHub.ctrl.aop;
+package edu.zhku.jsj144.lzc.articleHub.ctrl.plugin;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE_PARAMETER;
@@ -11,8 +11,6 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RUNTIME)
 @Target({ METHOD, TYPE_PARAMETER })
-public @interface ControllerPaging {
-	
-	public String requestParam();
-	
+public @interface CrossOrigin {
+
 }

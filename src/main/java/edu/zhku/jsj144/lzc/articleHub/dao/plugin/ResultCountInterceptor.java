@@ -1,4 +1,4 @@
-package edu.zhku.jsj144.lzc.articleHub.plugin;
+package edu.zhku.jsj144.lzc.articleHub.dao.plugin;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;

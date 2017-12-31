@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +26,6 @@ public class CommonController {
 
 	@RequestMapping(path = "/{type}/{field}/{value}", method = GET)
 	@ResponseBody
-	// @ControllerPaging(requestParam = "arg0")
 	public EchoMessage getData(@RequestParam Map<String, String> dataMap, @PathVariable String type, @PathVariable String field,
 			@PathVariable String value) throws IOException {
 		dataMap.put("_type", type);
@@ -49,7 +49,7 @@ public class CommonController {
 
 	@RequestMapping(path = "/{type}", method = POST)
 	@ResponseBody
-	public EchoMessage insertData(@RequestParam Map<String, String> dataMap, @PathVariable String type)
+	public EchoMessage insertData(@RequestBody Map<String, String> dataMap, @PathVariable String type)
 			throws IOException {
 		dataMap.put("_type", type);
 		service.insertData(dataMap);
@@ -59,7 +59,7 @@ public class CommonController {
 
 	@RequestMapping(path = "/{type}/{field}/{value}", method = PUT)
 	@ResponseBody
-	public EchoMessage updateData(@RequestParam Map<String, String> dataMap, @PathVariable String type,
+	public EchoMessage updateData(@RequestBody Map<String, String> dataMap, @PathVariable String type,
 			@PathVariable String field, @PathVariable String value) throws IOException {
 		dataMap.put("_type", type);
 		dataMap.put("_field", field);

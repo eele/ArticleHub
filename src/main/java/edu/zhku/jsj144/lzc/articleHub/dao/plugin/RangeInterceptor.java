@@ -1,4 +1,4 @@
-package edu.zhku.jsj144.lzc.articleHub.plugin;
+package edu.zhku.jsj144.lzc.articleHub.dao.plugin;
 
 import java.sql.Connection;
 import java.util.Map;
@@ -30,7 +30,6 @@ public class RangeInterceptor implements Interceptor {
 		.append(Integer.parseInt(dataMap.get("_pb")) - 1)
 		.append(" , ").append(dataMap.get("_ps"));
 		
-		System.out.println(rangeSql.toString());
 		return rangeSql.toString();
 	}
 

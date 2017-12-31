@@ -4,7 +4,7 @@
 
 <configuration>
 	<plugins>
-		<plugin interceptor="edu.zhku.jsj144.lzc.articleHub.plugin.RangeInterceptor" />
+		<plugin interceptor="edu.zhku.jsj144.lzc.articleHub.dao.plugin.RangeInterceptor" />
 	</plugins>
 	
 <!-- 	<settings> -->
