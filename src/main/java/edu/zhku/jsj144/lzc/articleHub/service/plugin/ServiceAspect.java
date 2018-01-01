@@ -50,8 +50,8 @@ public class ServiceAspect {
 		Map<String, String> dataMap = (Map<String, String>) joinPoint.getArgs()[0];
 		if (dataMap.containsKey("_content")) {
 			List<Map<String, String>> retList = (List<Map<String, String>>) retData;
-			if (retList.size() == 1) {
-				articleHandler.readArticleFromFile(dataMap.get("aid"), retList.get(0));
+			for (Map<String, String> data: retList) {
+				articleHandler.readArticleFromFile(data.get("aid"), data);
 			}
 		}
 	}
