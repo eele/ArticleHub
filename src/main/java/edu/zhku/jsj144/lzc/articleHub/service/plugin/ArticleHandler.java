@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class ArticleHandler {
 	
 	public void writeArticleToFile(String aid, String content) throws IOException {
-		File article = new File("c:/article/" + aid);
+		File article = new File("d:/article/" + aid);
 		OutputStream fos = new FileOutputStream(article);
 		fos.write(content.getBytes());
 		fos.write('\n');
@@ -24,7 +24,7 @@ public class ArticleHandler {
 	}
 
 	public void readArticleFromFile(String aid, Map<String, String> dataMap) throws IOException {
-		File article = new File("c:/article/" + aid);
+		File article = new File("d:/article/" + aid);
 		InputStream fis = new FileInputStream(article);
 		BufferedReader bf = new BufferedReader(new InputStreamReader(fis));
 		String content = bf.readLine();
