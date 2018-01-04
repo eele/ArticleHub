@@ -6,6 +6,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class CommonController {
 	@ResponseBody
 	public EchoMessage getData(@RequestParam Map<String, String> dataMap, @PathVariable String type, @PathVariable String field,
 			@PathVariable String value) throws IOException {
-		dataMap.put("_type", type);
-		dataMap.put(field, value);
+		dataMap.put("_type", URLDecoder.decode(type.replaceAll("%", "%25"), "utf-8"));
+		dataMap.put(field, URLDecoder.decode(value.replaceAll("%", "%25"), "utf-8"));
 		Object retDataObj = service.getData(dataMap);
 		EchoMessage message = new EchoMessage("OK");
 		message.setData(retDataObj);

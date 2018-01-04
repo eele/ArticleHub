@@ -21,10 +21,6 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<bean id="multipartResolver" class="edu.zhku.jsj144.lzc.articleHub.util.upload.ViCommonsMultipartResolver">
-		<property name="defaultEncoding" value="utf-8" />
-	</bean>
-	
 	<bean id="mappingJacksonHttpMessageConverter"  
         class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">  
         <property name="supportedMediaTypes">  
