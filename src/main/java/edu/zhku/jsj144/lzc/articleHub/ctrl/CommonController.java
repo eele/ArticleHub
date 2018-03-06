@@ -29,8 +29,8 @@ public class CommonController {
 	@ResponseBody
 	public EchoMessage getData(@RequestParam Map<String, String> dataMap, @PathVariable String type, @PathVariable String field,
 			@PathVariable String value) throws IOException {
-		dataMap.put("_type", URLDecoder.decode(type.replaceAll("%", "%25"), "utf-8"));
-		dataMap.put(field, URLDecoder.decode(value.replaceAll("%", "%25"), "utf-8"));
+		dataMap.put("_type", type);
+		dataMap.put(field, value);
 		Object retDataObj = service.getData(dataMap);
 		EchoMessage message = new EchoMessage("OK");
 		message.setData(retDataObj);
